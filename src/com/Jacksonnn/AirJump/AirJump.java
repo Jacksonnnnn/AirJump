@@ -21,8 +21,8 @@ public class AirJump extends AirAbility implements AddonAbility {
 		start();
 	}
 	public void setFields() {
-		vec = player.getLocation().getDirection().normalize().multiply(1);
-		vec.setY(1);
+		vec = player.getLocation().getDirection().normalize().multiply(5);
+		vec.setY(1.5);
 	}
 	@Override
 	public void progress() {
@@ -31,12 +31,15 @@ public class AirJump extends AirAbility implements AddonAbility {
 			return;
 		}
 		
-		
+		player.setVelocity(vec);
+		bPlayer.addCooldown(this);
+		remove();
+		return;
 	}
 
 	@Override
 	public long getCooldown() {
-		return 30000;
+		return 1000;
 	}
 
 	@Override
