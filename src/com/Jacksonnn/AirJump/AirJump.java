@@ -1,14 +1,18 @@
 package com.Jacksonnn.AirJump;
 
 import com.projectkorra.projectkorra.ability.*;
+import com.projectkorra.projectkorra.util.ParticleEffect;
+
 import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.util.Vector;
 
+import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ProjectKorra;
 
 public class AirJump extends AirAbility implements AddonAbility {
 	Vector vec;
+	Location location;
 	
 	public AirJump(Player player) {
 		super(player);
@@ -23,6 +27,7 @@ public class AirJump extends AirAbility implements AddonAbility {
 	public void setFields() {
 		vec = player.getLocation().getDirection().normalize().multiply(5);
 		vec.setY(1.5);
+		location = player.getLocation();
 	}
 	@Override
 	public void progress() {
@@ -32,6 +37,9 @@ public class AirJump extends AirAbility implements AddonAbility {
 		}
 		
 		player.setVelocity(vec);
+		AirAbility.playAirbendingParticles(location, 2, 0.5F, 0.5F, 0.5F);
+		ParticleEffect.CLOUD.display(vec.multiply(-1), (float) 0.1, GeneralMethods.getRightSide(player.getLocation().clone().add(0, 1.48, 0), 0.3), 255);
+		ParticleEffect.CLOUD.display(vec.multiply(-1), (float) 0.1, GeneralMethods.getLeftSide(player.getLocation().clone().add(0, 1.48, 0), 0.3), 255);
 		bPlayer.addCooldown(this);
 		remove();
 		return;
