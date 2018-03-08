@@ -36,6 +36,16 @@ public class AirJump extends AirAbility implements AddonAbility {
 			return;
 		}
 		
+		double height = 1;
+		for (double radius = 0.75; radius < 1.75; radius += 0.25) {
+		  for (double theta = 0; theta < 2*Math.PI; theta+=Math.PI/(4/Math.sqrt(radius))) {
+		    double x = Math.cos(theta) * radius;
+		    double z = Math.sin(theta) * radius;
+		    Location pl = player.getLocation().clone().add(x, height, z);
+		    ParticleEffect.CLOUD.display(pl, 0, 0, 0, 0.001f, 1);
+		  }
+		  height -= 0.25;
+		}
 		player.setVelocity(vec);
 		AirAbility.playAirbendingParticles(location, 2, 0.5F, 0.5F, 0.5F);
 		ParticleEffect.CLOUD.display(vec.multiply(-1), (float) 0.1, GeneralMethods.getRightSide(player.getLocation().clone().add(0, 1.48, 0), 0.3), 255);
