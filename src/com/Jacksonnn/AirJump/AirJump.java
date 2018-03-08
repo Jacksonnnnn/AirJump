@@ -8,7 +8,8 @@ import org.bukkit.util.Vector;
 import com.projectkorra.projectkorra.ProjectKorra;
 
 public class AirJump extends AirAbility implements AddonAbility {
-
+	Vector vec;
+	
 	public AirJump(Player player) {
 		super(player);
 		
@@ -20,7 +21,8 @@ public class AirJump extends AirAbility implements AddonAbility {
 		start();
 	}
 	public void setFields() {
-		Vector vec = player.getLocation().getDirection().normalize().multiply(1);
+		vec = player.getLocation().getDirection().normalize().multiply(1);
+		vec.setY(1);
 	}
 	@Override
 	public void progress() {
@@ -28,7 +30,8 @@ public class AirJump extends AirAbility implements AddonAbility {
 			remove();
 			return;
 		}
-
+		
+		
 	}
 
 	@Override
