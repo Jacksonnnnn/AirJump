@@ -3,12 +3,27 @@ package com.Jacksonnn.AirJump;
 import com.projectkorra.projectkorra.ability.*;
 import org.bukkit.*;
 import org.bukkit.entity.*;
+import org.bukkit.util.Vector;
+
 import com.projectkorra.projectkorra.ProjectKorra;
 
 public class AirJump extends AirAbility implements AddonAbility {
 
+	Vector vec;
+	
 	public AirJump(Player player) {
 		super(player);
+		
+		if (!bPlayer.canBend(this)) {
+			return;
+		}
+		setFields();
+		start();
+	}
+	
+	public void setFields() {
+		vec = player.getLocation().getDirection().normalize().multiply(5);
+		vec.setY(1.5);
 	}
 
 	@Override
@@ -17,12 +32,15 @@ public class AirJump extends AirAbility implements AddonAbility {
 			remove();
 			return;
 		}
-
+		player.setVelocity(vec);
+		bPlayer.addCooldown(this);
+		remove();
+		return;
 	}
 
 	@Override
 	public long getCooldown() {
-		return 30000;
+		return 1000;
 	}
 
 	@Override
