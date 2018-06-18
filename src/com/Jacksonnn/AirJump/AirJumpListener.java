@@ -10,7 +10,7 @@ import com.projectkorra.projectkorra.BendingPlayer;
 public class AirJumpListener implements Listener {
 	
 	@EventHandler
-	public void onSneak(PlayerToggleSneakEvent event) {
+	public void onShift(PlayerToggleSneakEvent event) {
 		Player player = event.getPlayer();
 		BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);
 		
